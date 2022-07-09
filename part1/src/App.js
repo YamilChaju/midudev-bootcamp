@@ -1,66 +1,18 @@
-import { Component } from 'react';
-import Productos from './components/Productos';
-import Layout from './components/Layout';
-import Title from './components/Title';
-import Navbar from './components/Navbar';
+import './App.css';
+import Mensaje from './Mensaje';
+//App es un componente, tiene que ir con mayuscula, retorna una especie de html
+//pero no es html, es jsx, el compilador lo transforma en js
 
 
-class App extends Component {
-  state = {
-    productos: [
-      {name: 'Tomate', price: '1500', img: '/productos/tomate.jpg'},
-      {name: 'Arvejas', price: '2500', img: '/productos/arvejas.jpg'},
-      {name: 'Lechuga', price: '500', img: '/productos/lechuga.jpg'},
-    ],
-    carro: [],
-    esCarroVisible: false,
-  }
 
-  agregarAlCarro = (producto) => {
-    const { carro } = this.state;
-    if (carro.find(x => x.name === producto.name)) {
-      const newCarro = carro.map(x => x.name === producto.name
-        ? ({
-          ...x,
-          cantidad: x.cantidad + 1
-        })
-        : x)
-      return this.setState({ carro: newCarro })
-    }
-    return this.setState({
-      carro: this.state.carro.concat({
-        ...producto,
-        cantidad: 1,
-      })
-    })
-  }
-
-  mostrarCarro = () => {
-    if (!this.state.carro.length) {
-      return
-    }
-    this.setState({ esCarroVisible: !this.state.esCarroVisible })
-  }
-
-  render() {
-    const { esCarroVisible } = this.state;
-    return (
-      <div>
-        <Navbar 
-          carro={this.state.carro} 
-          esCarroVisible={esCarroVisible} 
-          mostrarCarro={this.mostrarCarro}
-        />
-        <Layout>
-          <Title />
-          <Productos 
-            agregarAlCarro={this.agregarAlCarro}
-            productos={this.state.productos}
-          />
-        </Layout>
-      </div>
-    );
-  }
+const App = () => {
+  return (
+    <div className="App">
+      <Mensaje color='green' message='Estamos trabajando' />
+      <Mensaje color='yellow' message='En un curso' />
+      <Mensaje color='red' message='En react' />
+    </div>
+  );
 }
 
 export default App;
